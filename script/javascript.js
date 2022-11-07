@@ -1,11 +1,12 @@
 class Cadastro {
-    constructor(fisrtName, lastName, email, cel, password, confirmPassword) {
+    constructor(fisrtName, lastName, email, cel, password, confirmPassword, genero) {
         this.fisrtName = fisrtName;
         this.lastName = lastName;
         this.email = email;
         this.cel = cel;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.genero = genero;
     }
 }
 
@@ -17,12 +18,11 @@ const email = document.querySelector('#email');
 const celular = document.querySelector('#number');
 const senha = document.querySelector('#password');
 const confirSenha = document.querySelector('#confirmpassword');
-
-
+let opcoesGenero
 
 // Eventos de escolha de genero
 genero.addEventListener('click', (e) => {
-    let opcoesGenero = e.target.value;
+    opcoesGenero = e.target.value;
     console.log(opcoesGenero);
     return opcoesGenero
 })
@@ -48,7 +48,8 @@ btn.addEventListener('click', (e) => {
     if (!verificarSenha(senha, confirSenha)) {
         e.preventDefault();
     } else {
-        const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value);
+        e.preventDefault();
+        const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value, opcoesGenero);
         console.log(cliente);
     }
 })
@@ -64,7 +65,7 @@ function checkChar(e) {
         return true
     }
 }
-// Função para verificar senhas
+// Função para verificar senhas obs-> colocar validação de força de senha !
 function verificarSenha(senha1, senha2) {
     let confirm = false
     const senhaCompare = senha1.value
@@ -76,7 +77,8 @@ function verificarSenha(senha1, senha2) {
         }
 
     } else {
-        alert(`Senha não conferi, Porfavor digite as senhas iguais`)
+        // senha2.setCustomValidity('As senhas não conferi, Porfavor digite as senhas iguais')
+        alert(`As senhas não conferi, Porfavor digite as senhas iguais`)
     }
 
 
