@@ -9,7 +9,6 @@ class Cadastro {
     }
 }
 
-
 const nome = document.querySelector('#firstname');
 const btn = document.querySelector('#btn-continue-button');
 const genero = document.querySelector('#gender-group');
@@ -18,16 +17,16 @@ const email = document.querySelector('#email');
 const celular = document.querySelector('#number');
 const senha = document.querySelector('#password');
 const confirSenha = document.querySelector('#confirmpassword');
-let opcoesGenero;
 
 
 
-const radioGenero = Event => {
-    opcoesGenero = Event.target.value;
+// Eventos de escolha de genero
+genero.addEventListener('click', (e) => {
+    let opcoesGenero = e.target.value;
     console.log(opcoesGenero);
     return opcoesGenero
-}
-
+})
+// Eventos de caracteres no Primeiro nome 
 nome.addEventListener('keypress', function (e) {
 
     if (!checkChar(e)) {
@@ -35,37 +34,37 @@ nome.addEventListener('keypress', function (e) {
     }
 
 })
+// Eventos caracteres no Sobrenome
+sobreNome.addEventListener('keypress', function (e) {
 
+    if (!checkChar(e)) {
+        e.preventDefault();
+    }
 
+})
+// Eventos do click do button de cadastro
 btn.addEventListener('click', (e) => {
 
-    if (verificarSenha(senha, confirSenha)) {
+    if (!verificarSenha(senha, confirSenha)) {
+        e.preventDefault();
+    } else {
         const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value);
         console.log(cliente);
     }
-
-    console.log(nome.value)
-    console.log(sobreNome.value)
-    console.log(email.value)
-    console.log(celular.value)
-    console.log(senha.value)
-    console.log(confirSenha.value)
-
 })
-
+// Função para verificar caracteres
 function checkChar(e) {
 
     const char = String.fromCharCode(e.keyCode);
 
     const pattern = `[a-zA-Z0-9]`;
 
-
     if (char.match(pattern)) {
         console.log(char)
         return true
     }
 }
-
+// Função para verificar senhas
 function verificarSenha(senha1, senha2) {
     let confirm = false
     const senhaCompare = senha1.value
@@ -76,8 +75,6 @@ function verificarSenha(senha1, senha2) {
 
         }
 
-
-
     } else {
         alert(`Senha não conferi, Porfavor digite as senhas iguais`)
     }
@@ -86,5 +83,3 @@ function verificarSenha(senha1, senha2) {
 
     return confirm
 }
-
-genero.addEventListener('click', radioGenero);
