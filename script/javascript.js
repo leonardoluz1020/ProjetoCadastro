@@ -16,8 +16,10 @@ const genero = document.querySelector('#gender-group');
 const sobreNome = document.querySelector('#lastname');
 const email = document.querySelector('#email');
 const celular = document.querySelector('#number');
+
 const senha = document.querySelector('#password');
 const confirSenha = document.querySelector('#confirmpassword');
+
 let opcoesGenero
 
 // Eventos de escolha de genero
@@ -48,7 +50,7 @@ btn.addEventListener('click', (e) => {
     if (!verificarSenha(senha, confirSenha)) {
         e.preventDefault();
     } else {
-        e.preventDefault();
+         e.preventDefault();
         const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value, opcoesGenero);
         console.log(cliente);
     }
@@ -58,30 +60,56 @@ function checkChar(e) {
 
     const char = String.fromCharCode(e.keyCode);
 
-    const pattern = `[a-zA-Z0-9]`;
+    const pattern = `[a-zA-Z]`;
 
     if (char.match(pattern)) {
         console.log(char)
         return true
     }
 }
-// Função para verificar senhas obs-> colocar validação de força de senha !
+// Função para verificar senhas iguais
 function verificarSenha(senha1, senha2) {
     let confirm = false
-    const senhaCompare = senha1.value
+
     if (senha1.value === senha2.value) {
-
         confirm = true;
-        if (senhaCompare.includes('')) {
-
-        }
-
     } else {
         // senha2.setCustomValidity('As senhas não conferi, Porfavor digite as senhas iguais')
-        alert(`As senhas não conferi, Porfavor digite as senhas iguais`)
+        alert(`Senhas nã conferem!`)
     }
-
-
-
     return confirm
+}
+//  Validar senha
+function validarSenhaForca() {
+    let forca = 0;
+    const senha = document.querySelector('#password').value;
+    // document.querySelector('#show-numbers').innerHTML = `Senha ${senha} `;
+
+    if ((senha.length >= 4) && (senha.length <= 7)) {//
+        forca += 10;
+    }else if (senha.length > 7) {
+        forca += 25;
+    }
+    if ((senha.length >= 5) && (senha.match(/[a-z]+/))) {
+        forca += 10;
+    }
+    if ((senha.length >= 6) && (senha.match(/[A-Z]+/))) {
+        forca += 20;
+    }if ((senha.length >= 7) && (senha.match(/[!@#$%&*()]/))) {
+        forca += 25;
+    }
+    mostrarForca(forca);
+}
+// Mostrar nivel da senha
+function mostrarForca(forca) {
+    // document.querySelector('#force').innerHTML = `Força: ${forca}`;
+    if (forca < 30) {
+        document.querySelector('#impri-force').innerHTML = `<span style='color: #ff0000'> Fraca</span>`;
+    } else if ((forca >= 30) && (forca <= 50) ) {
+        document.querySelector('#impri-force').innerHTML = `<span style='color: #ffD700'>Média</span>`;
+    } else if ((forca > 50) && (forca <= 70)) {
+        document.querySelector('#impri-force').innerHTML = `<span style='color: #7FFF00'>Forte</span>`;
+    } else if ((forca > 70) && (forca <= 100)) {
+        document.querySelector('#impri-force').innerHTML = `<span style='color: #008000'>Excelente</span>`;
+    }
 }
