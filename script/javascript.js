@@ -16,7 +16,6 @@ const genero = document.querySelector('#gender-group');
 const sobreNome = document.querySelector('#lastname');
 const email = document.querySelector('#email');
 const celular = document.querySelector('#number');
-
 const senha = document.querySelector('#password');
 const confirSenha = document.querySelector('#confirmpassword');
 
@@ -46,11 +45,15 @@ sobreNome.addEventListener('keypress', function (e) {
 })
 // Eventos do click do button de cadastro
 btn.addEventListener('click', (e) => {
-
-    if (!verificarSenha(senha, confirSenha)) {
+    console.log(retroForca.value)
+    if ((!verificarSenha(senha, confirSenha)) || (nome.value === '') || (celular.value === '') || (senha.value === '') || (confirSenha.value === '') || (email.value === '')) {
+       
         e.preventDefault();
     } else {
-         e.preventDefault();
+        document.querySelector('#impri-force-confir').innerHTML = '';
+        document.querySelector('#impri-force').innerHTML = '';
+        
+        e.preventDefault();
         const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value, opcoesGenero);
         console.log(cliente);
     }
@@ -71,13 +74,23 @@ function checkChar(e) {
 function verificarSenha(senha1, senha2) {
     let confirm = false
 
+    if (senha1.value === '') {
+
+        document.querySelector('#impri-force').innerHTML = `<span style='color: #ff0000'> Por favor preencher a senha !</span>`;
+
+    } else if (senha2.value === '') {
+
+        document.querySelector('#impri-force-confir').innerHTML = `<span style='color: #ff0000'> Por favor confirmar a senha !</span>`;
+    }
+
     if (senha1.value === senha2.value) {
+        
         confirm = true;
     } else {
-        // senha2.setCustomValidity('As senhas não conferi, Porfavor digite as senhas iguais')
-        alert(`Senhas nã conferem!`)
+       
+        document.querySelector('#impri-force-confir').innerHTML = 'As senhas não conferi!';
     }
-    return confirm
+        return confirm
 }
 //  Validar senha
 function validarSenhaForca() {
@@ -87,7 +100,7 @@ function validarSenhaForca() {
 
     if ((senha.length >= 4) && (senha.length <= 7)) {//
         forca += 10;
-    }else if (senha.length > 7) {
+    } else if (senha.length > 7) {
         forca += 25;
     }
     if ((senha.length >= 5) && (senha.match(/[a-z]+/))) {
@@ -95,7 +108,7 @@ function validarSenhaForca() {
     }
     if ((senha.length >= 6) && (senha.match(/[A-Z]+/))) {
         forca += 20;
-    }if ((senha.length >= 7) && (senha.match(/[!@#$%&*()]/))) {
+    } if ((senha.length >= 7) && (senha.match(/[!@#$%&*()]/))) {
         forca += 25;
     }
     mostrarForca(forca);
@@ -105,7 +118,7 @@ function mostrarForca(forca) {
     // document.querySelector('#force').innerHTML = `Força: ${forca}`;
     if (forca < 30) {
         document.querySelector('#impri-force').innerHTML = `<span style='color: #ff0000'> Fraca</span>`;
-    } else if ((forca >= 30) && (forca <= 50) ) {
+    } else if ((forca >= 30) && (forca <= 50)) {
         document.querySelector('#impri-force').innerHTML = `<span style='color: #ffD700'>Média</span>`;
     } else if ((forca > 50) && (forca <= 70)) {
         document.querySelector('#impri-force').innerHTML = `<span style='color: #7FFF00'>Forte</span>`;
