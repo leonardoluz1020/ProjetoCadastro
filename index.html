@@ -29,22 +29,26 @@
                     <div class="input-box">
                         <label for="firstname">Primeiro nome</label>
                         <input id="firstname" type="text" name="firstname" placeholder="Digite seu primeiro nome"
-                            required>
+                           onkeyup="apagaMensagemFirstName()" required>
+                            <span id="first-name"></span>
                     </div>
 
                     <div class="input-box">
                         <label for="lastname">Sobrenome</label>
-                        <input id="lastname" type="text" name="lastname" placeholder="Digite seu sobrenome" required>
+                        <input id="lastname" type="text" name="lastname" placeholder="Digite seu sobrenome" onkeyup="apagaMensagemLastName()" required>
+                        <span id="last-name"></span>
                     </div>
 
                     <div class="input-box">
                         <label for="email">Email</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu seu email" required>
+                        <input id="email" type="email" name="email" placeholder="Digite seu seu email" onkeyup="apagaMensagemEmail()" required>
+                        <span id="span-email"></span>
                     </div>
 
                     <div class="input-box">
                         <label for="number">Celular</label>
-                        <input id="number" type="tel" name="number" placeholder="(xx) xxxxx-xxxx" required>
+                        <input id="number" type="tel" name="number" placeholder="(xx) xxxxx-xxxx" onkeyup="apagaMensagemPhone()" required>
+                        <span id="span-phone"></span>
                     </div>
 
                     <div class="input-box">
@@ -58,7 +62,7 @@
                     <div class="input-box">
                         <label for="confirmpassword">Confirme sua senha</label>
                         <input id="confirmpassword" type="password" name="confirmpassword"
-                            placeholder="Digite sua senha" required>
+                            placeholder="Digite sua senha" onkeyup="apagaMensagemConfirmaSenha()" required>
                             <span id="impri-force-confir"></span>    
                     </div>
                 </div>
