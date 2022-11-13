@@ -20,12 +20,16 @@ const senha = document.querySelector('#password');
 const confirSenha = document.querySelector('#confirmpassword');
 
 let opcoesGenero
-
+let isconfirm = true;
 // Eventos de escolha de genero
 genero.addEventListener('click', (e) => {
     opcoesGenero = e.target.value;
+if (opcoesGenero) {
+    isconfirm = !isconfirm
     console.log(opcoesGenero);
     return opcoesGenero
+}
+    
 })
 // Eventos de caracteres no Primeiro nome 
 nome.addEventListener('keypress', function (e) {
@@ -46,40 +50,38 @@ sobreNome.addEventListener('keypress', function (e) {
 // Eventos do click do button de cadastro
 btn.addEventListener('click', (e) => {
 
-    if (!verificarSenha(senha, confirSenha)) {
-
-        /*  || (nome.value === '') || (sobreNome.value === '') || (celular.value === '') || (senha.value === '') || (confirSenha.value === '') || (email.value === '')) */
-
-
-
-        if ((sobreNome.value === '')) {
+    if ( !verificarSenha(senha, confirSenha) || !sobreNome.value || !nome.value || !celular.value || !email.value || isconfirm) {
+       
+        if ((!sobreNome.value)) {
             document.querySelector('#last-name').innerHTML = ` <span style= 'color: #ff0000'>Digite seu sobrenome</span> `
         }
-        if ((nome.value === '')) {
+        if ((!nome.value)) {
             document.querySelector('#first-name').innerHTML = ` <span style= 'color: #ff0000'>Digite seu nome</span> `
         }
-        if (celular.value === '') {
+        if (!celular.value) {
             document.querySelector('#span-phone').innerHTML = ` <span style= 'color: #ff0000'>Digite seu numero</span> `
         }
-        if (email.value === '') {
+        if (!email.value) {
             document.querySelector('#span-email').innerHTML = ` <span style= 'color: #ff0000'>Digite seu email</span> `
         }
-
-        // e.preventDefault();
+        if (isconfirm) {
+            document.querySelector('#span-genero').innerHTML = `<span style= 'color: #ff0000'>Preencha o genero</span>`
+        }
+         e.preventDefault();
     } else {
         
-        document.querySelector('#impri-force-confir').innerHTML = '';
-        document.querySelector('#impri-force').innerHTML = '';
+        // document.querySelector('#impri-force-confir').innerHTML = '';
+        // document.querySelector('#impri-force').innerHTML = '';
         const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value, opcoesGenero);
         console.log(cliente);
-        document.querySelector('#firstname').innerHTML =''
-        document.querySelector('#lastname').innerHTML =''
-        document.querySelector('#email').innerHTML = ''
-        document.querySelector('#number').innerHTML = ''
-        document.querySelector('#password').innerHTML = ''
-        document.querySelector('#confirmpassword').innerHTML = ''
+        // document.querySelector('#firstname').innerHTML =''
+        // document.querySelector('#lastname').innerHTML =''
+        // document.querySelector('#email').innerHTML = ''
+        // document.querySelector('#number').innerHTML = ''
+        // document.querySelector('#password').innerHTML = ''
+        // document.querySelector('#confirmpassword').innerHTML = ''
 
-        //e.preventDefault();
+       // e.preventDefault();
     }
 })
 // Função para verificar caracteres
@@ -96,26 +98,31 @@ function checkChar(e) {
 }
 // Função para verificar senhas iguais
 function verificarSenha(senha1, senha2) {
-    let confirm = false
-    let confirm1 = true
+    let confirm = true    
 
-    if (senha1.value === '') {
+    if (!senha1.value) {
+        console.log(!senha1.value)
 
         document.querySelector('#impri-force').innerHTML = `<span style='color: #ff0000'> Por favor preencher a senha !</span>`;
-        confirm1 = false
-    } else if (senha2.value === '') {
+        confirm = false
+    } else if (!senha2.value) {
+        console.log(!senha2.value)
 
         document.querySelector('#impri-force-confir').innerHTML = `<span style='color: #ff0000'> Por favor confirmar a senha !</span>`;
-        confirm1 = false
+        confirm = false
     } else if (senha1.value.length < 8 || senha2.value.length < 8) {
-
+        console.log(senha1.value.length)
+        console.log(senha2.value.length)
         document.querySelector('#impri-force-confir').innerHTML = `<span style='color: #ff0000'>Senha fora de padrão</span>`;
-        confirm1 = false
+        confirm = false
     } else if (senha1.value !== senha2.value) {
-
+        console.log(senha1.value)
+        console.log(senha2.value)
         document.querySelector('#impri-force-confir').innerHTML = `<span style='color: #ff0000'> senhas não conferem !</span>`;
-        confirm1 = false
-    } else if ((senha1.value === senha2.value) /* && confirm1 */) {
+        confirm = false
+    } else if (senha1.value === senha2.value && senha1.value.length >= 8 && senha2.value.length >= 8) {
+        console.log(senha1.value)
+        console.log(senha.value)
 
         confirm = true;
 
