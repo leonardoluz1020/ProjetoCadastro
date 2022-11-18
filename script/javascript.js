@@ -73,6 +73,10 @@ btn.addEventListener('click', (e) => {
         // document.querySelector('#impri-force-confir').innerHTML = '';
         // document.querySelector('#impri-force').innerHTML = '';
         const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value, opcoesGenero);
+        localStorage.newCliente = cliente
+        
+
+
         console.log(cliente);
         // document.querySelector('#firstname').innerHTML =''
         // document.querySelector('#lastname').innerHTML =''
@@ -92,7 +96,7 @@ function checkChar(e) {
     const pattern = `[a-zA-Z]`;
 
     if (char.match(pattern)) {
-        console.log(char)
+        // console.log(char)
         return true
     }
 }
