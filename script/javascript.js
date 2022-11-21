@@ -11,18 +11,17 @@ class Cadastro {
 }
 
 const nome = document.querySelector('#firstname');
-const btn = document.querySelector('#btn-continue-button');
-const genero = document.querySelector('#gender-group');
 const sobreNome = document.querySelector('#lastname');
 const email = document.querySelector('#email');
 const celular = document.querySelector('#number');
 const senha = document.querySelector('#password');
 const confirSenha = document.querySelector('#confirmpassword');
-
 let opcoesGenero
 let isconfirm = true;
+
 // Eventos de escolha de genero
-genero.addEventListener('click', (e) => {
+document.querySelector('#gender-group')
+ .addEventListener('click', (e) => {
     opcoesGenero = e.target.value;
 if (opcoesGenero) {
     isconfirm = !isconfirm
@@ -48,7 +47,8 @@ sobreNome.addEventListener('keypress', function (e) {
 
 })
 // Eventos do click do button de cadastro
-btn.addEventListener('click', (e) => {
+document.querySelector('#btn-continue-button')
+.addEventListener('click', (e) => {
 
     if ( !verificarSenha(senha, confirSenha) || !sobreNome.value || !nome.value || !celular.value || !email.value || isconfirm) {
        
@@ -69,23 +69,12 @@ btn.addEventListener('click', (e) => {
         }
          e.preventDefault();
     } else {
-        
-        // document.querySelector('#impri-force-confir').innerHTML = '';
-        // document.querySelector('#impri-force').innerHTML = '';
+     
         const cliente = new Cadastro(nome.value, sobreNome.value, email.value, celular.value, senha.value, confirSenha.value, opcoesGenero);
-        // localStorage.newCliente = cliente
-        
-
-
-        console.log(cliente);
-        document.querySelector('#firstname').innerHTML =''
-        document.querySelector('#lastname').innerHTML =''
-        document.querySelector('#email').innerHTML = ''
-        document.querySelector('#number').innerHTML = ''
-        document.querySelector('#password').innerHTML = ''
-        document.querySelector('#confirmpassword').innerHTML = ''
-
-        e.preventDefault();
+        console.log(cliente)
+        localStorage.setItem("Cliente", JSON.stringify(cliente))
+        //const novoCliente = localStorage.getItem("Cliente")        
+         //e.preventDefault();
     }
 })
 // Função para verificar caracteres
